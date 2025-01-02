@@ -6,8 +6,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Nav from "./nav";
 const sans = Doto({ variable: "--font-sans", subsets: ["latin"] });
 export const metadata: Metadata = {
-	title: "Quentin Blake",
-	description: "Personal Portfolio",
+	title: "undefined.dll",
+	description: "find the mysteries of this user...",
 };
 
 export default function RootLayout({
