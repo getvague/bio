@@ -35,5 +35,5 @@ A minimal and elegant bio/portfolio website built with Next.js and TailwindCSS.
 
 - Next.js 
 - TailwindCSS
-- DaisyUI
+- Catpuccin (for the theme)
 - TypeScript
