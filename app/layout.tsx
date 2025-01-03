@@ -6,24 +6,29 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Nav from "./nav";
 const sans = Doto({ variable: "--font-sans", subsets: ["latin"] });
 export const metadata: Metadata = {
-	title: "undefined.dll",
-	description: "find the mysteries of this user...",
+    title: "undefined.dll",
+    description: "find the mysteries of this user...",
 };
 
 export default function RootLayout({
-	children,
+    children,
 }: Readonly<{
-	children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-	return (
-		<html lang="en" className={`${sans.variable} dark`}>
-			<body className="font-sans antialiased bg-base text-text font-medium h-screen flex flex-col overflow-x-hidden selection:bg-surface2/60">
-				<TooltipProvider>
-					<Nav />
-					<main className="mt-20 px-2">{children}</main>
-				</TooltipProvider>
-				<Analytics />
-			</body>
-		</html>
-	);
+    return (
+        <html lang="en" className={`${sans.variable} dark`}>
+            <body className="font-sans antialiased bg-base text-text font-medium h-screen flex flex-col overflow-x-hidden selection:bg-surface2/60">
+                <TooltipProvider>
+                    <Nav />
+                    <main className="mt-20 px-2 flex-grow">{children}</main>
+                    <footer className="bg-mantle p-4 text-center">
+                        <p>
+                            Profile from <a href="https://github.com/quentin-zero" className="text-blue-500 hover:underline">@quentin-zero</a>
+                        </p>
+                    </footer>
+                </TooltipProvider>
+                <Analytics />
+            </body>
+        </html>
+    );
 }
