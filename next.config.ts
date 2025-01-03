@@ -4,6 +4,14 @@ module.exports = {
     images: {
         domains: ['cdn.discordapp.com'],
     },
+	async rewrites() {
+        return [
+            {
+                source: '/.well-known/discord',
+                destination: '/api/.well-known/discord',
+            },
+        ];
+    },
 };
 
 const nextConfig: NextConfig = {
