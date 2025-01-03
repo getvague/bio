@@ -5,9 +5,11 @@ import { CircleDashed, Clock, Code, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import { type LanyardData, useLanyard } from "react-use-lanyard";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+
 export const SuspenseFallback = () => (
     <div className="rounded-md bg-fd-muted w-80 h-40 flex justify-center items-center border">loading...</div>
 );
+
 export function DiscordStatus() {
     const {
         isLoading,
@@ -28,6 +30,33 @@ export function DiscordStatus() {
         dnd: "text-red",
         offline: "text-subtext2",
     };
+
+    const renderActivityImages = (activity: any) => {
+        if (!activity.assets) return null;
+        return (
+            <div className="relative mr-4">
+                {activity.assets.large_image && (
+                    <Image
+                        src={`https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}.png`}
+                        width={96}
+                        height={96}
+                        alt={activity.assets.large_text || "Large Image"}
+                        className="rounded-lg"
+                    />
+                )}
+                {activity.assets.small_image && (
+                    <Image
+                        src={`https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.small_image}.png`}
+                        width={24}
+                        height={24}
+                        alt={activity.assets.small_text || "Small Image"}
+                        className="rounded-full absolute -bottom-1 -right-1 border-2 border-base"
+                    />
+                )}
+            </div>
+        );
+    };
+
     return (
         <Card
             className="w-80 h-40"
@@ -59,19 +88,24 @@ export function DiscordStatus() {
                         <p className="truncate">{customStatus.state}</p>
                     </div>
                 ) : null}
-                <div className="flex flex-row gap-2 items-center">
+                <div className="flex flex-row items-start">
                     {gameActivity ? (
                         <>
-                            <Code className="size-4" />
-                            <p className="truncate">
-                                {gameActivity.name}: {gameActivity.details}
-                            </p>
-                            {gameActivity.timestamps ? (
-                                <>
-                                    <Clock className="size-4" />
-                                    <p>{formatElapsedTime(gameActivity.timestamps.start)}</p>
-                                </>
-                            ) : null}
+                            {renderActivityImages(gameActivity)}
+                            <div className="flex flex-col gap-2 flex-grow">
+                                <div className="flex items-center gap-2">
+                                    <Code className="size-4" />
+                                    <p className="truncate">
+                                        {gameActivity.name}: {gameActivity.details}
+                                    </p>
+                                </div>
+                                {gameActivity.timestamps && (
+                                    <div className="flex items-center gap-2">
+                                        <Clock className="size-4" />
+                                        <p>{formatElapsedTime(gameActivity.timestamps.start)}</p>
+                                    </div>
+                                )}
+                            </div>
                         </>
                     ) : (
                         <>
